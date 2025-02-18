@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 try:
-    client = MongoClient("mongodb+srv://musab05ahs:pyKC3HZqfrHTjD16@cluster0.l8wgb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", serverSelectionTimeoutMS=5000)
+    client = MongoClient("mongodb+srv://musab05ahs:pyKC3HZqfrHTjD16@cluster0.l8wgb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
     users_collection = db['users']
     tickets_collection = db['tickets']
     bookings_collection = db['bookings']
