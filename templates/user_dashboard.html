@@ -33,19 +33,11 @@
               <td>{{ ticket.available }}</td>
               <td>
                 <form action="{{ url_for('book') }}" method="post">
-                  <input
-                    type="hidden"
-                    name="ticket_id"
-                    value="{{ ticket._id }}"
-                  />
-                  <input
-                    type="number"
-                    name="num_tickets"
-                    placeholder="Number of Tickets"
-                    required
-                  />
-                  <button type="submit">Book</button>
-                </form>
+  <input type="hidden" name="ticket_id" value="{{ ticket._id }}" />
+  <input type="hidden" name="timestamp" id="timestamp" />
+  <input type="number" name="num_tickets" placeholder="Number of Tickets" required />
+  <button type="submit">Book</button>
+</form>
               </td>
             </tr>
             {% endfor %}
@@ -92,4 +84,8 @@
       </div>
     </div>
   </body>
+  <script>
+  document.getElementById("timestamp").value = new Date().toISOString();
+</script>
 </html>
+
