@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import sys
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -45,6 +46,8 @@ def dashboard():
 
 @app.route('/book', methods=['GET', 'POST'])
 def book():
+    print("Received POST request", file=sys.stderr)
+    print("Form Data:", request.form, file=sys.stderr)
     if request.method == 'GET':
         return "This endpoint only accepts POST requests.", 400  # Handle GET request properly
 
