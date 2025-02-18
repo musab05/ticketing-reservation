@@ -6,12 +6,17 @@ import sys
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-client = MongoClient("mongodb+srv://musab05ahs:pyKC3HZqfrHTjD16@cluster0.l8wgb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-db = client['ticket_reservation_system']
-users_collection = db['users']
-tickets_collection = db['tickets']
-bookings_collection = db['bookings']
-requests_collection = db['requests']
+try:
+    client = MongoClient("mongodb+srv://musab05ahs:pyKC3HZqfrHTjD16@cluster0.l8wgb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", serverSelectionTimeoutMS=5000)
+    users_collection = db['users']
+    tickets_collection = db['tickets']
+    bookings_collection = db['bookings']
+    requests_collection = db['requests']
+    client.server_info()  # Check if connected
+    print("✅ MongoDB Connected Successfully")
+except Exception as e:
+    print("❌ MongoDB Connection Failed:", e)
+
 
 # Create admin user if not exists
 if users_collection.count_documents({'username': 'admin'}) == 0:
