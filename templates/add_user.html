@@ -1,0 +1,31 @@
+<!-- filepath: /C:/DSLAB4/Ticketting System/NewApp/templates/add_user.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add User</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('home') }}">Logout</a>
+    </nav>
+    <div class="container">
+      <h2>Add User</h2>
+      <form method="POST" action="{{ url_for('add_user') }}">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+        <br />
+        <label for="is_admin">Admin:</label>
+        <input type="checkbox" id="is_admin" name="is_admin" />
+        <br />
+        <button type="submit">Add User</button>
+      </form>
+    </div>
+  </body>
+</html>

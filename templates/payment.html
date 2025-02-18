@@ -1,0 +1,30 @@
+<!-- filepath: /c:/DSLAB4/Ticketting System/NewApp/templates/payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('home') }}">Logout</a>
+    </nav>
+    <div class="container">
+      <h2>Payment</h2>
+      <p>Booking ID: {{ booking._id }}</p>
+      <p>Number of Tickets: {{ booking.num_tickets }}</p>
+      <form
+        action="{{ url_for('payment', booking_id=booking._id) }}"
+        method="post"
+      >
+        <button type="submit">Confirm Payment</button>
+      </form>
+    </div>
+  </body>
+</html>

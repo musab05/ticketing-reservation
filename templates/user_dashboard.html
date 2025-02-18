@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('home') }}">Logout</a>
+    </nav>
+    <div class="container">
+      <h2>User Dashboard</h2>
+      <div class="section">
+        <h3>Available Tickets</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>Available Tickets</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr>
+              <td>{{ ticket._id }}</td>
+              <td>{{ ticket.available }}</td>
+              <td>
+                <form action="{{ url_for('book') }}" method="post">
+                  <input
+                    type="hidden"
+                    name="ticket_id"
+                    value="{{ ticket._id }}"
+                  />
+                  <input
+                    type="number"
+                    name="num_tickets"
+                    placeholder="Number of Tickets"
+                    required
+                  />
+                  <button type="submit">Book</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="section">
+        <h3>My Bookings</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Booking ID</th>
+              <th>Ticket ID</th>
+              <th>Number of Tickets</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for booking in bookings %}
+            <tr>
+              <td>{{ booking._id }}</td>
+              <td>{{ booking.ticket_id }}</td>
+              <td>{{ booking.num_tickets }}</td>
+              <td>
+                <form action="{{ url_for('cancel') }}" method="post">
+                  <input
+                    type="hidden"
+                    name="booking_id"
+                    value="{{ booking._id }}"
+                  />
+                  <input
+                    type="number"
+                    name="num_tickets"
+                    placeholder="Number of Tickets to Cancel"
+                    required
+                  />
+                  <button type="submit">Cancel</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
