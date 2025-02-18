@@ -43,10 +43,18 @@ def dashboard():
     bookings = list(bookings_collection.find({'username': session['username']}))
     return render_template('user_dashboard.html', tickets=tickets, bookings=bookings)
 
-@app.route('/book', methods=['POST'])
+@app.route('/book', methods=['GET', 'POST'])
 def book():
+    if request.method == 'GET':
+        return "This endpoint only accepts POST requests.", 400  # Handle GET request properly
+
     if 'username' not in session:
         return redirect(url_for('home'))
+    
+    # Ensure request contains necessary form data
+    if not all(k in request.form for k in ['ticket_id', 'num_tickets', 'timestamp']):
+        return jsonify({"error": "Missing form data"}), 400
+
     ticket_id = request.form['ticket_id']
     num_tickets = int(request.form['num_tickets'])
     timestamp = request.form['timestamp']
@@ -70,7 +78,9 @@ def book():
             'num_tickets': num_tickets
         }).inserted_id
         return redirect(url_for('payment', booking_id=booking_id))
-    return 'Not enough tickets available'
+    
+    return jsonify({"error": "Not enough tickets available"}), 400
+
 
 @app.route('/payment/<booking_id>', methods=['GET', 'POST'])
 def payment(booking_id):
